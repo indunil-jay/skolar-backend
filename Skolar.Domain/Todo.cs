@@ -1,11 +1,13 @@
-﻿namespace Skolar.Domain;
+﻿using Skolar.Domain.Enums;
+
+namespace Skolar.Domain;
 
 public sealed class Todo
 {
     public Guid Id { get; private set; }
     public string Title { get; private set; }
     public string? Description { get; private set; }
-    public string Priority { get; private set; } 
+    public TodoPriority Priority { get; private set; } 
     public bool IsCompleted { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
@@ -16,7 +18,7 @@ public sealed class Todo
         Guid id,
         string title,
         string? description,
-        string priority,
+        TodoPriority priority,
         bool isCompleted,
         DateTime createdAt,
         DateTime? dueDate
@@ -35,7 +37,7 @@ public sealed class Todo
     public static Todo Create(
         string title,
         string? description = null,
-        string priority = "Normal",
+        TodoPriority priority = TodoPriority.Normal,
         DateTime? dueDate = null)
     {
         return new Todo(
