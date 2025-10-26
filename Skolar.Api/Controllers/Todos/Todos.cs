@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Skolar.Application.Todos.Commands;
 
 namespace Skolar.Api.Controllers.Todos;
 
@@ -6,6 +8,11 @@ namespace Skolar.Api.Controllers.Todos;
 [ApiController]
 public class Todos : ControllerBase
 {
+    private readonly ISender _sender;
+    public Todos(ISender sender)
+    {
+        _sender = sender;
+    }
 
     [HttpPost]
     public async Task<IActionResult> CreateTodo(
@@ -13,6 +20,11 @@ public class Todos : ControllerBase
             CancellationToken cancellationToken)
     {
        
+        await _sender.Send(new CreateTodoCommand(
+            request.Title,
+            request.Description,
+            request.Priority,
+            request.DueDate), cancellationToken);
         return Ok();
     }
 }

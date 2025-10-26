@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Skolar.Application\Skolar.Application.csproj" />
+    <ProjectReference Include="..\Skolar.Domain\Skolar.Domain.csproj" />
   </ItemGroup>
 
 </Project>

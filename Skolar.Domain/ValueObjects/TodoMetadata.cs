@@ -1,9 +1,11 @@
 ﻿using Skolar.Domain.Enums;
+using System.Text.Json.Serialization;
 
 namespace Skolar.Domain.ValueObjects;
 
 public sealed record TodoMetadata
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public TodoPriority Priority { get; }
     public bool IsCompleted { get; }
     public DateTime? DueDate { get; }
