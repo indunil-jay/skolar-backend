@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Skolar.Application.Todos.Commands;
 
@@ -9,9 +10,11 @@ namespace Skolar.Api.Controllers.Todos;
 public class Todos : ControllerBase
 {
     private readonly ISender _sender;
-    public Todos(ISender sender)
+    private readonly IMapper _mapper;
+    public Todos(ISender sender, IMapper mapper)
     {
         _sender = sender;
+        _mapper = mapper;
     }
 
     [HttpPost]
@@ -19,12 +22,8 @@ public class Todos : ControllerBase
             [FromBody] CreateTodoRequest request,
             CancellationToken cancellationToken)
     {
-       
-      var todo =  await _sender.Send(new CreateTodoCommand(
-            request.Title,
-            request.Description,
-            request.Priority,
-            request.DueDate), cancellationToken);
+        var command = _mapper.Map<CreateTodoCommand>(request);
+        var todo =  await _sender.Send(command, cancellationToken);
         return Ok(todo);
     }
 }

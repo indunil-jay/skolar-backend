@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MapsterMapper;
+using MediatR;
 using Skolar.Application.Todos.Responses;
 using Skolar.Domain;
 using Skolar.Domain.Enums;
@@ -9,6 +10,13 @@ namespace Skolar.Application.Todos.Commands;
 internal class CreateTodoCommandHandler : IRequestHandler<CreateTodoCommand, TodoResponse>
 
 {
+    private readonly IMapper _mapper;
+
+    public CreateTodoCommandHandler(IMapper mapper)
+    {
+        _mapper = mapper;
+    }
+
 
     public Task<TodoResponse> Handle(CreateTodoCommand command, CancellationToken cancellationToken)
     {
@@ -18,18 +26,6 @@ internal class CreateTodoCommandHandler : IRequestHandler<CreateTodoCommand, Tod
            (TodoPriority)Enum.Parse(typeof(TodoPriority), command.Priority, true),
         command.DueDate);
 
-        var response = new TodoResponse(
-            todo.Id,
-            todo.Title,
-            todo.Description,
-            todo.Metadata.Priority,
-            todo.Metadata.IsCompleted,
-            todo.CreatedAt,
-            todo.UpdatedAt,
-            todo.Metadata.DueDate,
-            todo.CompletedAt
-        );
-
-        return Task.FromResult(response); 
+        return Task.FromResult(_mapper.Map<TodoResponse>(todo)); 
     }
 }
