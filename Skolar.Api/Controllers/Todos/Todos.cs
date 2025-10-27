@@ -20,11 +20,11 @@ public class Todos : ControllerBase
             CancellationToken cancellationToken)
     {
        
-        await _sender.Send(new CreateTodoCommand(
+      var todo =  await _sender.Send(new CreateTodoCommand(
             request.Title,
             request.Description,
             request.Priority,
             request.DueDate), cancellationToken);
-        return Ok();
+        return Ok(todo);
     }
 }
