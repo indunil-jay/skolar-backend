@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Mapster;
+using MapsterMapper;
+using Microsoft.Extensions.DependencyInjection;
 using Skolar.Application.Abstractions.Behaviours;
 
 namespace Skolar.Application;
@@ -13,6 +16,14 @@ public static class DependencyInjection
             configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
 
         });
+
+        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+
+        var mapsterConfig  = TypeAdapterConfig.GlobalSettings;
+        mapsterConfig.Scan(typeof(DependencyInjection).Assembly); 
+        services.AddSingleton(mapsterConfig);
+        services.AddScoped<IMapper, ServiceMapper>();
+
 
         return services;
     }
