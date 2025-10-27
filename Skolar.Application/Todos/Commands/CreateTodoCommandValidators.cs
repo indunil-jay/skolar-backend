@@ -6,17 +6,18 @@ internal class CreateTodoCommandValidators : AbstractValidator<CreateTodoCommand
 {
     public CreateTodoCommandValidators()
     {
-        RuleFor(x => x.Title)
+        RuleFor(x => x.Title.Value)
             .NotEmpty().WithMessage("Title is required.")
-            .MaximumLength(100).WithMessage("Title must not exceed 100 characters.");
+            .MaximumLength(64).WithMessage("Title must not exceed 100 characters.");
 
         RuleFor(x => x.Description)
-            .MaximumLength(500).WithMessage("Description must not exceed 500 characters.");
+        .Must(desc => desc == null || (desc.Value != null && desc.Value.Length <= 256))
+        .WithMessage("Description must not exceed 100 characters.");
 
-        RuleFor(x => x.Priority)
-     .NotEmpty().WithMessage("Priority is required.")
-     .IsEnumName(typeof(TodoPriority), caseSensitive: false)
-     .WithMessage("Priority must be one of: Low, Medium, Normal, High, or Urgent.");
+        RuleFor(x => x.Priority.ToString())
+            .NotEmpty().WithMessage("Priority is required.")
+            .Must(value => !string.IsNullOrEmpty(value) && Enum.TryParse<TodoPriority>(value, true, out _))
+            .WithMessage("Priority must be one of: Low, Medium, Normal, High, or Urgent.");
 
 
 
@@ -25,3 +26,6 @@ internal class CreateTodoCommandValidators : AbstractValidator<CreateTodoCommand
             .WithMessage("Due date must be in the future.");
     }
 }
+
+
+

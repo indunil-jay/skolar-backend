@@ -6,9 +6,9 @@ namespace Skolar.Domain.ValueObjects;
 public sealed record TodoMetadata
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public TodoPriority Priority { get; }
-    public bool IsCompleted { get; }
-    public DateTime? DueDate { get; }
+    public TodoPriority Priority { get; private set; }
+    public bool IsCompleted { get; private set; }
+    public DateTime? DueDate { get; private set; }
 
     public TodoMetadata(TodoPriority priority, bool isCompleted, DateTime? dueDate)
     {

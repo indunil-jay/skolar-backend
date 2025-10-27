@@ -2,8 +2,6 @@
 using MediatR;
 using Skolar.Application.Todos.Responses;
 using Skolar.Domain;
-using Skolar.Domain.Enums;
-using Skolar.Domain.ValueObjects;
 
 namespace Skolar.Application.Todos.Commands;
 
@@ -20,12 +18,8 @@ internal class CreateTodoCommandHandler : IRequestHandler<CreateTodoCommand, Tod
 
     public Task<TodoResponse> Handle(CreateTodoCommand command, CancellationToken cancellationToken)
     {
-       var todo = Todo.Create(
-            new TodoTitle(command.Title),
-            new TodoDescription(command.Description),
-           (TodoPriority)Enum.Parse(typeof(TodoPriority), command.Priority, true),
-        command.DueDate);
+        var todo = Todo.Create(command.Title, command.Description, command.Priority, command.DueDate);
 
-        return Task.FromResult(_mapper.Map<TodoResponse>(todo)); 
+        return Task.FromResult(_mapper.Map<TodoResponse>(todo));
     }
 }

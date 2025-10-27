@@ -3,6 +3,8 @@ using Skolar.Api.Controllers.Todos;
 using Skolar.Application.Todos.Commands;
 using Skolar.Application.Todos.Responses;
 using Skolar.Domain;
+using Skolar.Domain.Enums;
+using Skolar.Domain.ValueObjects;
 
 namespace Skolar.Application.Todos.Mappers;
 
@@ -10,9 +12,27 @@ public sealed class TodoMapper : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<CreateTodoRequest, CreateTodoCommand>();
+        // Map request → command
+        config.NewConfig<CreateTodoRequest, CreateTodoCommand>()
+      .Map(dest => dest.Title, src => new TodoTitle(src.Title))
+      .Map(dest => dest.Description, src => new TodoDescription(src.Description))
+      .Map(dest => dest.Priority, src => Enum.Parse<TodoPriority>(src.Priority, true));
 
-        config.NewConfig<Todo, TodoResponse>();
 
+
+
+        // Map domain entity → response
+        config.NewConfig<Todo, TodoResponse>()
+              .Map(dest => dest.Title, src => src.Title.Value)
+              .Map(dest => dest.Description, src => src.Description != null ? src.Description.Value : null)
+              .Map(dest => dest.Priority, src => src.Metadata.Priority.ToString())
+              .Map(dest => dest.IsCompleted, src => src.Metadata.IsCompleted)
+              .Map(dest => dest.DueDate, src => src.Metadata.DueDate)
+              .Map(dest => dest.CreatedAt, src => src.CreatedAt)
+              .Map(dest => dest.UpdatedAt, src => src.UpdatedAt)
+              .Map(dest => dest.CompletedAt, src => src.CompletedAt);
     }
+
+    
+
 }
