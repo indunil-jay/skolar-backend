@@ -1,18 +1,23 @@
-﻿namespace Skolar.Application.Todos.Commands;
-
-using MediatR;
+﻿using Microsoft.Extensions.Logging;
+using Skolar.Domain.Primitives;
 using Skolar.Domain.Todos.Events;
 
-internal  sealed class TodoCreatedDomainEventHandler : INotificationHandler<TodoCreatedDomainEvent>
+namespace Skolar.Application.Todos.Commands;
+
+internal sealed class TodoCreatedDomainEventHandler : IDomainEventHandler<TodoCreatedDomainEvent>
 {
-    public TodoCreatedDomainEventHandler()
+    private readonly ILogger<TodoCreatedDomainEventHandler> _logger;    
+    public TodoCreatedDomainEventHandler(ILogger<TodoCreatedDomainEventHandler> logger)
     {
-        //service register here
+        _logger = logger;
     }
 
-    public Task Handle(TodoCreatedDomainEvent notification, CancellationToken cancellationToken)
+    public Task Handle(TodoCreatedDomainEvent obj, CancellationToken cancellationToken)
     {
         //cross cutting concerns here
+        //ex; logging
+        _logger.LogInformation($"Todo Created: ID : {obj.Todo.Id}, NAME : {obj.Todo.Title}");
+
         return Task.CompletedTask;
     }
 

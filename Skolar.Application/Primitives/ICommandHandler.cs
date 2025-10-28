@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace Skolar.Application.Primitives
+namespace Skolar.Application.Primitives;
+
+public interface ICommandHandler<TCommand> : IRequestHandler<TCommand, Unit>
+    where TCommand : ICommand
 {
-    internal interface ICommandHandler
-    {
-    }
+}
+
+public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
+    where TCommand : ICommand<TResponse>
+{
 }

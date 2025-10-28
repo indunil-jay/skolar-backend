@@ -1,11 +1,10 @@
 ﻿using MapsterMapper;
-using MediatR;
 using Skolar.Application.Todos.Responses;
 using Skolar.Domain.Todos;
+using Skolar.Application.Primitives;
 
 namespace Skolar.Application.Todos.Commands;
-
-internal class CreateTodoCommandHandler : IRequestHandler<CreateTodoCommand, TodoResponse>
+internal class CreateTodoCommandHandler : ICommandHandler<CreateTodoCommand, TodoResponse>
 
 {
     private readonly IMapper _mapper;
