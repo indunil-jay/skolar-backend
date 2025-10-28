@@ -7,12 +7,17 @@ namespace Skolar.Domain.Todos;
 
 public sealed class Todo : Entity
 {
-    public TodoTitle Title { get; private set; }
+    public TodoTitle Title { get; private set; } = default!;
     public TodoDescription? Description { get; private set; }
     public TodoMetadata Metadata { get; private set;  }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public DateTime? CompletedAt { get; private set; }
+
+    //EF Core
+    private Todo()
+    {
+    }
 
     private Todo(
         Guid id,
@@ -23,12 +28,12 @@ public sealed class Todo : Entity
     ):base(id)
     {
 
-        Id = id;
         Title = title;
         Description = description;
         Metadata = metadata;
         CreatedAt = createdAt;
     }
+
 
     public static Todo Create(
         TodoTitle title,
@@ -36,7 +41,7 @@ public sealed class Todo : Entity
         TodoPriority priority = TodoPriority.Normal,
         DateTime? dueDate = null)
     {
-        var todo= new Todo( Guid.NewGuid(),title,description,TodoMetadata.Add(priority, dueDate),DateTime.UtcNow);
+        var todo= new Todo(Guid.NewGuid(),title,description,TodoMetadata.Add(priority, dueDate),DateTime.UtcNow);
         todo.PublishDomainEvent(new TodoCreatedDomainEvent(todo));
         return todo;
     }

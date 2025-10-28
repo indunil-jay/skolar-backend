@@ -4,7 +4,7 @@ using Skolar.Application.Todos.Commands;
 using Skolar.Application.Todos.Responses;
 using Skolar.Domain.Todos;
 using Skolar.Domain.Todos.Enums;
-using Skolar.Domain.ValueObjects;
+using Skolar.Domain.Todos.ValueObjects;
 
 namespace Skolar.Application.Todos.Mappers;
 
