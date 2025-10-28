@@ -30,7 +30,7 @@ internal sealed class ApplicationDbContext:DbContext
     private async Task PublishDomainEventsAsync(CancellationToken cancellationToken) { 
     
         var domainEntities = ChangeTracker
-            .Entries<Entity>()
+            .Entries<BaseEntity>()
             .Select(entity => entity.Entity)
             .SelectMany(entity=>
             {

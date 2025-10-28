@@ -2,12 +2,12 @@
 
 namespace Skolar.Domain.Primitives;
 
-public abstract class Entity
+public abstract class BaseEntity
 {
     private readonly List<INotification> _domainEvents = [];
 
-    protected Entity() { }
-    protected Entity(Guid id) { 
+    protected BaseEntity() { }
+    protected BaseEntity(Guid id) { 
      Id = id;
     }
     public Guid Id { get; private set; }

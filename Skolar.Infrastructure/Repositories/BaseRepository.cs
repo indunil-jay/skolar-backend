@@ -3,7 +3,7 @@ using Skolar.Domain.Primitives;
 
 namespace Skolar.Infrastructure.Repositories;
 
-internal abstract class BaseRepository<T> : IBaseRepository<T> where T : Entity
+internal abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
     protected readonly ApplicationDbContext _dbContext;
 

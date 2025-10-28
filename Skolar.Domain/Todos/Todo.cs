@@ -5,7 +5,7 @@ using Skolar.Domain.Todos.ValueObjects;
 
 namespace Skolar.Domain.Todos;
 
-public sealed class Todo : Entity
+public sealed class Todo : BaseEntity
 {
     public TodoTitle Title { get; private set; } = default!;
     public TodoDescription? Description { get; private set; }
