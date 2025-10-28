@@ -1,5 +1,6 @@
 ﻿using Skolar.Domain.Primitives;
 using Skolar.Domain.Todos.Enums;
+using Skolar.Domain.Todos.Events;
 using Skolar.Domain.Todos.ValueObjects;
 
 namespace Skolar.Domain.Todos;
@@ -35,13 +36,9 @@ public sealed class Todo : Entity
         TodoPriority priority = TodoPriority.Normal,
         DateTime? dueDate = null)
     {
-        return new Todo(
-            Guid.NewGuid(),
-            title,
-            description,
-            TodoMetadata.Add(priority, dueDate),
-            DateTime.UtcNow
-        );
+        var todo= new Todo( Guid.NewGuid(),title,description,TodoMetadata.Add(priority, dueDate),DateTime.UtcNow);
+        todo.PublishDomainEvent(new TodoCreatedDomainEvent(todo));
+        return todo;
     }
 
   
