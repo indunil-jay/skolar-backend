@@ -1,6 +1,7 @@
 ﻿namespace Skolar.Application.Todos.Commands;
+
 using MediatR;
-using Skolar.Domain.Events;
+using Skolar.Domain.Todos.Events;
 
 internal  sealed class TodoCreatedDomainEventHandler : INotificationHandler<TodoCreatedDomainEvent>
 {

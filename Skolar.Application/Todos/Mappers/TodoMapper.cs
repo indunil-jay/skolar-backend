@@ -2,8 +2,8 @@
 using Skolar.Api.Controllers.Todos;
 using Skolar.Application.Todos.Commands;
 using Skolar.Application.Todos.Responses;
-using Skolar.Domain;
-using Skolar.Domain.Enums;
+using Skolar.Domain.Todos;
+using Skolar.Domain.Todos.Enums;
 using Skolar.Domain.ValueObjects;
 
 namespace Skolar.Application.Todos.Mappers;

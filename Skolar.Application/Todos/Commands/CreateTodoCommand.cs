@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Skolar.Application.Todos.Responses;
-using Skolar.Domain.Enums;
-using Skolar.Domain.ValueObjects;
+using Skolar.Domain.Todos.Enums;
+using Skolar.Domain.Todos.ValueObjects;
 
 namespace Skolar.Application.Todos.Commands;
 public sealed record CreateTodoCommand(TodoTitle Title, TodoDescription? Description, TodoPriority Priority, DateTime DueDate): IRequest<TodoResponse>;

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Skolar.Application.Todos.Commands;
-using Skolar.Domain.Enums;
+using Skolar.Domain.Todos.Enums;
 
 internal class CreateTodoCommandValidators : AbstractValidator<CreateTodoCommand>
 {

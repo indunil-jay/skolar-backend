@@ -1,7 +1,7 @@
 ﻿using MapsterMapper;
 using MediatR;
 using Skolar.Application.Todos.Responses;
-using Skolar.Domain;
+using Skolar.Domain.Todos;
 
 namespace Skolar.Application.Todos.Commands;
 

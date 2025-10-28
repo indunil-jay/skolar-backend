@@ -1,4 +1,4 @@
-﻿namespace Skolar.Domain.ValueObjects;
+﻿namespace Skolar.Domain.Todos.ValueObjects;
 
 public sealed record TodoTitle
 {

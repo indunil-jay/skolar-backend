@@ -1,7 +1,7 @@
-﻿using Skolar.Domain.Enums;
-using Skolar.Domain.ValueObjects;
+﻿using Skolar.Domain.Todos.Enums;
+using Skolar.Domain.Todos.ValueObjects;
 
-namespace Skolar.Domain;
+namespace Skolar.Domain.Todos;
 
 public sealed class Todo
 {

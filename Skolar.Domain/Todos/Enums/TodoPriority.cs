@@ -1,4 +1,4 @@
-﻿namespace Skolar.Domain.Enums;
+﻿namespace Skolar.Domain.Todos.Enums;
 
 public enum TodoPriority
 {

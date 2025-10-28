@@ -1,7 +1,7 @@
-﻿using Skolar.Domain.Enums;
+﻿using Skolar.Domain.Todos.Enums;
 using System.Text.Json.Serialization;
 
-namespace Skolar.Domain.ValueObjects;
+namespace Skolar.Domain.Todos.ValueObjects;
 
 public sealed record TodoMetadata
 {
