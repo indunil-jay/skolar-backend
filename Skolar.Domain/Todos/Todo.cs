@@ -1,11 +1,11 @@
-﻿using Skolar.Domain.Todos.Enums;
+﻿using Skolar.Domain.Primitives;
+using Skolar.Domain.Todos.Enums;
 using Skolar.Domain.Todos.ValueObjects;
 
 namespace Skolar.Domain.Todos;
 
-public sealed class Todo
+public sealed class Todo : Entity
 {
-    public Guid Id { get; private set; }
     public TodoTitle Title { get; private set; }
     public TodoDescription? Description { get; private set; }
     public TodoMetadata Metadata { get; private set;  }
@@ -19,7 +19,7 @@ public sealed class Todo
         TodoDescription? description,
         TodoMetadata metadata,
         DateTime createdAt
-    )
+    ):base(id)
     {
 
         Id = id;
