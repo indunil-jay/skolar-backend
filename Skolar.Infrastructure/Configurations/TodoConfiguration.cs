@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Skolar.Domain.Todos;
+using Skolar.Domain.Todos.ValueObjects;
 
 namespace Skolar.Infrastructure.Configurations;
 
@@ -11,22 +12,23 @@ internal sealed class TodoConfiguration : IEntityTypeConfiguration<Todo>
         builder.ToTable("todos");
 
         builder.HasKey(t => t.Id);
+        builder.Property(t => t.Id)
+               .ValueGeneratedNever();
 
-        builder.OwnsOne(tb=> tb.Title, titleBuilder =>
-        {
-            titleBuilder.Property(t => t.Value)
-                .IsRequired()
-                .HasMaxLength(64)
-                .HasColumnName("title");
-        });
+        builder.Property(t => t.Title)
+                 .HasConversion(
+                     title => title.Value,                    
+                     value => new TodoTitle(value))          
+                 .HasColumnName("title")
+                 .HasMaxLength(200)
+                 .IsRequired();
 
-
-       builder.OwnsOne(tb => tb.Description, descriptionBuilder =>
-        {
-            descriptionBuilder.Property(d => d.Value)
-                .HasMaxLength(256)
-                .HasColumnName("description");
-        });
+        builder.Property(t => t.Description)
+                .HasConversion(
+                    description => description == null ? null : description.Value,
+                    value => value == null ? null : new TodoDescription(value))
+                .HasColumnName("description")
+                .HasMaxLength(200);
 
         builder.OwnsOne(tb => tb.Metadata, metadataBuilder =>
         {

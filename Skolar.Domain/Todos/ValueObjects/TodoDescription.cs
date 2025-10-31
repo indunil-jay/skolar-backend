@@ -2,14 +2,14 @@
 
 public sealed record TodoDescription
 {
-    public string? Value { get; }
+    public string Value { get; }
 
-    public TodoDescription(string? value)
+    public TodoDescription(string value)
     {
         Value = value;
     }
 
-    public static implicit operator string?(TodoDescription description) => description?.Value;
+    public static implicit operator string?(TodoDescription description) => description.Value;
 
-    public static explicit operator TodoDescription(string? value) => new(value);
+    public static explicit operator TodoDescription(string value) => new(value);
 }
