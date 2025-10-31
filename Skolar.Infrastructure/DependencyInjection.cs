@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Skolar.Domain.Todos;
+using Skolar.Infrastructure.Repositories;
 
 namespace Skolar.Infrastructure;
 
@@ -15,6 +17,8 @@ public static class DependencyInjection
             options.UseSqlServer(connectionString)
                    .UseSnakeCaseNamingConvention();
         });
+
+        services.AddScoped<ITodoRepository, TodoRepository>();
         return services;
     }
 }
