@@ -1,6 +1,5 @@
 services:
   skolar.api:
-    image: ${DOCKER_REGISTRY-}skolarapi
     build:
       context: .
       dockerfile: Skolar.Api/Dockerfile

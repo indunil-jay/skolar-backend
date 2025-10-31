@@ -10,11 +10,9 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 //only for http run option
-builder.WebHost.UseUrls("http://localhost:5000");
+//builder.WebHost.UseUrls("http://localhost:5000");
 
 var app = builder.Build();
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

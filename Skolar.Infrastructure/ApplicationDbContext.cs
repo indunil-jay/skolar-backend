@@ -5,7 +5,7 @@ using Skolar.Domain.Primitives;
 
 namespace Skolar.Infrastructure;
 
-internal sealed class ApplicationDbContext:DbContext
+internal sealed class ApplicationDbContext:DbContext,IUnitOfWork
 {
     private readonly IPublisher _publisher;
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IPublisher publisher)
