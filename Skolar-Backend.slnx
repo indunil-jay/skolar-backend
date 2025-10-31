@@ -1,4 +1,7 @@
 <Solution>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
   <Project Path="Skolar.Api/Skolar.Api.csproj" Id="0b63f160-465e-48ab-ae09-f7d103b2148e" />
   <Project Path="Skolar.Application/Skolar.Application.csproj" Id="cd95a7e2-f3c3-4550-a8e0-58bbbf3c6ac5" />
   <Project Path="Skolar.Domain/Skolar.Domain.csproj" Id="13c06b8a-0229-40fe-b979-ec692f18356d" />
