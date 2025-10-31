@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Skolar.Application\Skolar.Application.csproj" />
     <ProjectReference Include="..\Skolar.Domain\Skolar.Domain.csproj" />
+    <ProjectReference Include="..\Skolar.Infrastructure\Skolar.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

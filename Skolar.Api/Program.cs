@@ -1,4 +1,5 @@
 using Skolar.Application;
+using Skolar.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,13 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
-
-builder.WebHost.UseUrls("http://localhost:3000");
+//only for http run option
+builder.WebHost.UseUrls("http://localhost:5000");
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
 
