@@ -8,11 +8,11 @@ internal class CreateTodoCommandValidators : AbstractValidator<CreateTodoCommand
     {
         RuleFor(x => x.Title.Value)
             .NotEmpty().WithMessage("Title is required.")
-            .MaximumLength(64).WithMessage("Title must not exceed 100 characters.");
+            .MaximumLength(64).WithMessage("Title must not exceed 64 characters.");
 
         RuleFor(x => x.Description)
         .Must(desc => desc == null || (desc.Value != null && desc.Value.Length <= 256))
-        .WithMessage("Description must not exceed 100 characters.");
+        .WithMessage("Description must not exceed 256 characters.");
 
         RuleFor(x => x.Priority.ToString())
             .NotEmpty().WithMessage("Priority is required.")
