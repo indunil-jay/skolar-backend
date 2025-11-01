@@ -10,6 +10,12 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        var mapsterConfig = TypeAdapterConfig.GlobalSettings;
+        mapsterConfig.Scan(typeof(DependencyInjection).Assembly);
+        mapsterConfig.Compile();
+        services.AddSingleton(mapsterConfig);
+        services.AddScoped<IMapper, ServiceMapper>();
+
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
@@ -18,12 +24,6 @@ public static class DependencyInjection
         });
 
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
-
-        var mapsterConfig  = TypeAdapterConfig.GlobalSettings;
-        mapsterConfig.Scan(typeof(DependencyInjection).Assembly); 
-        services.AddSingleton(mapsterConfig);
-        services.AddScoped<IMapper, ServiceMapper>();
-
 
         return services;
     }

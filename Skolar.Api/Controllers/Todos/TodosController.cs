@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Skolar.Api.Extensions;
 using Skolar.Application.Todos.Commands;
+using Skolar.Application.Todos.Requests;
 
 namespace Skolar.Api.Controllers.Todos;
 
@@ -23,6 +24,7 @@ public class TodosController : ControllerBase
             [FromBody] CreateTodoRequest request,
             CancellationToken cancellationToken)
     {
+       
         var command = _mapper.Map<CreateTodoCommand>(request);
         var result =  await _sender.Send(command, cancellationToken);
 

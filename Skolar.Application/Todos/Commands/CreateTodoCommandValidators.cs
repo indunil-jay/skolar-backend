@@ -13,19 +13,18 @@ namespace Skolar.Application.Todos.Commands
                 .MaximumLength(64).WithMessage(Messages.TitleTooLong);
 
             RuleFor(x => x.Description)
-                .Must(desc => desc is null || (desc.Length <= 256))
+                .Must(desc => desc is null || desc.Length <= 256)
                 .WithMessage(Messages.DescriptionTooLong);
 
-            RuleFor(x => x.Priority.ToString())
-                .NotEmpty().WithMessage(Messages.PriorityRequired)
-                .Must(value => Enum.TryParse<TodoPriority>(value, true, out _))
+            RuleFor(x => x.Priority)
+                .Must(priority => priority != TodoPriority.None)
                 .WithMessage(Messages.PriorityInvalid);
 
             RuleFor(x => x.DueDate)
                 .GreaterThan(DateTime.Now)
+                .When(x => x.DueDate.HasValue)
                 .WithMessage(Messages.DueDateInPast);
         }
-
 
         private static class Messages
         {
@@ -35,7 +34,6 @@ namespace Skolar.Application.Todos.Commands
 
             public const string DescriptionTooLong = "Description must not exceed 256 characters.";
 
-            public const string PriorityRequired = "Priority is required.";
             public const string PriorityInvalid = "Priority must be one of: Low, Medium, Normal, High, or Urgent.";
 
             public const string DueDateInPast = "Due date must be in the future.";

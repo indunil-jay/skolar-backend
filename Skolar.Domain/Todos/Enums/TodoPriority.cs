@@ -2,6 +2,7 @@
 
 public enum TodoPriority
 {
+    None,
     Low,
     Medium,
     Normal,
