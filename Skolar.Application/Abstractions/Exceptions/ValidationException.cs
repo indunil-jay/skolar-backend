@@ -1,13 +1,13 @@
-﻿using Skolar.Application.Abstractions.Errors;
+﻿using Skolar.Domain.Primitives;
 
 namespace Skolar.Application.Abstractions.Exceptions;
 
 
 internal sealed class ValidationException : Exception
 {
-    public IReadOnlyCollection<ValidationError> Errors { get; }
+    public IReadOnlyCollection<Error> Errors { get; }
 
-    public ValidationException(IEnumerable<ValidationError> errors)
+    public ValidationException(IEnumerable<Error> errors)
         : base("One or more validation errors occurred.")
     {
         Errors = errors.ToList().AsReadOnly();

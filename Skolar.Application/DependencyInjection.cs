@@ -2,7 +2,7 @@
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
-using Skolar.Application.Abstractions.Behaviours;
+using Skolar.Application.Abstractions.Behaviors;
 
 namespace Skolar.Application;
 
@@ -13,7 +13,7 @@ public static class DependencyInjection
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
-            configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            configuration.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
 
         });
 

@@ -19,7 +19,7 @@ internal class CreateTodoCommandHandler : ICommandHandler<CreateTodoCommand, Tod
     }
 
 
-    public async Task<TodoResponse> Handle(CreateTodoCommand command, CancellationToken cancellationToken)
+    public async Task<Result<TodoResponse>> Handle(CreateTodoCommand command, CancellationToken cancellationToken)
     {
         var todo = Todo.Create(command.Title, command.Description, command.Priority, command.DueDate);
 

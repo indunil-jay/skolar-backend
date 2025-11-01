@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Builder;
 using Skolar.Application;
 using Skolar.Infrastructure;
 
