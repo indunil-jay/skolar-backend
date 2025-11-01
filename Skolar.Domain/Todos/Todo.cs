@@ -5,11 +5,11 @@ using Skolar.Domain.Todos.ValueObjects;
 
 namespace Skolar.Domain.Todos;
 
-public sealed class Todo : BaseEntity
+public sealed class Todo : AggregateRoot
 {
     public TodoTitle Title { get; private set; } = default!;
     public TodoDescription? Description { get; private set; }
-    public TodoMetadata Metadata { get; private set;  }
+    public TodoMetadata Metadata { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public DateTime? CompletedAt { get; private set; }
@@ -25,7 +25,7 @@ public sealed class Todo : BaseEntity
         TodoDescription? description,
         TodoMetadata metadata,
         DateTime createdAt
-    ):base(id)
+    ) : base(id)
     {
 
         Title = title;
@@ -41,10 +41,10 @@ public sealed class Todo : BaseEntity
         TodoPriority priority = TodoPriority.Normal,
         DateTime? dueDate = null)
     {
-        var todo= new Todo(Guid.NewGuid(),title,description,TodoMetadata.Add(priority, dueDate),DateTime.UtcNow);
+        var todo = new Todo(Guid.NewGuid(), title, description, TodoMetadata.Add(priority, dueDate), DateTime.UtcNow);
         todo.PublishDomainEvent(new TodoCreatedDomainEvent(todo));
         return todo;
     }
 
-  
+
 }
