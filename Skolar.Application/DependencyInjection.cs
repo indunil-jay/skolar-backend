@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Mapster;
 using MapsterMapper;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Skolar.Application.Abstractions.Behaviors;
 
@@ -16,6 +17,8 @@ public static class DependencyInjection
         services.AddSingleton(mapsterConfig);
         services.AddScoped<IMapper, ServiceMapper>();
 
+        services.AddScoped(typeof(IPipelineBehavior<,>),typeof(ValidationPipelineBehavior<,>));    
+
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
@@ -23,7 +26,7 @@ public static class DependencyInjection
 
         });
 
-        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly,includeInternalTypes:true);
 
         return services;
     }

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Polly;
 using Quartz;
 using Skolar.Domain.Primitives;
 using Skolar.Infrastructure.Outbox;
@@ -33,14 +34,35 @@ public class ProccessOutboxMessagesJob : IJob
                 TypeNameHandling = TypeNameHandling.All
             });
 
-            if(domainEvent is null)
+            if (domainEvent is null)
             {
                 //may be all logs
                 continue;
             }
 
-            await _publisher.Publish(domainEvent, context.CancellationToken);
-            message.ProcessedOnUtc = DateTime.UtcNow;   
+
+            AsyncPolicy policy = Policy.Handle<Exception>()
+                                        .WaitAndRetryAsync(3, attempt=> TimeSpan.FromMicroseconds(50* attempt));
+
+            PolicyResult policyResult = await policy.ExecuteAndCaptureAsync(() => _publisher.Publish(domainEvent, context.CancellationToken));
+
+            message.Error = policyResult.FinalException?.ToString();
+            message.ProcessedOnUtc = DateTime.UtcNow;
+
+            //try
+            //{
+            //    await _publisher.Publish(domainEvent, context.CancellationToken);
+            //    message.ProcessedOnUtc = DateTime.UtcNow;
+
+            //}
+            //catch (Exception e)
+            //{
+            //    message.Error = e.ToString();
+            //    message.ProcessedOnUtc = DateTime.UtcNow;
+
+            //}
+
+
         }
 
         await _dbContext.SaveChangesAsync();
