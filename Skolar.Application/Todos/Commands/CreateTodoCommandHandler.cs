@@ -3,6 +3,7 @@ using Skolar.Application.Todos.Responses;
 using Skolar.Domain.Todos;
 using Skolar.Application.Primitives;
 using Skolar.Domain.Primitives;
+using Skolar.Domain.Shared;
 
 namespace Skolar.Application.Todos.Commands;
 internal class CreateTodoCommandHandler : ICommandHandler<CreateTodoCommand, TodoResponse>

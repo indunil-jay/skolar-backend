@@ -1,4 +1,4 @@
-﻿using Skolar.Domain.Primitives;
+﻿using Skolar.Domain.Shared;
 
 namespace Skolar.Domain.Todos;
 

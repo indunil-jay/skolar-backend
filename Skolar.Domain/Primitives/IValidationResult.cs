@@ -1,4 +1,6 @@
-﻿namespace Skolar.Domain.Primitives;
+﻿using Skolar.Domain.Shared;
+
+namespace Skolar.Domain.Primitives;
 
 public interface IValidationResult
 {

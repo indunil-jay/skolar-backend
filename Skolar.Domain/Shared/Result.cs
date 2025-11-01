@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Skolar.Domain.Primitives;
+namespace Skolar.Domain.Shared;
 public class Result
 {
     protected internal Result(bool isSuccess, Error error)

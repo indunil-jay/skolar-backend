@@ -1,4 +1,4 @@
-﻿namespace Skolar.Domain.Primitives;
+﻿namespace Skolar.Domain.Shared;
 public enum ErrorType
 {
     Failure,

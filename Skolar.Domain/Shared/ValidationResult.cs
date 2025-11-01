@@ -1,4 +1,6 @@
-﻿namespace Skolar.Domain.Primitives;
+﻿using Skolar.Domain.Primitives;
+
+namespace Skolar.Domain.Shared;
 
 public sealed class ValidationResult :Result,IValidationResult 
 {
