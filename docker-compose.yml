@@ -1,0 +1,28 @@
+services:
+  skolar.api:
+    build:
+      context: .
+      dockerfile: Skolar.Api/Dockerfile
+    container_name: skolar.api
+    ports:
+      - "5000:8080"
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=skolar.db-server,1433;Database=skolar-db;User Id=sa;Password=P@ssword123!;TrustServerCertificate=True;
+    depends_on:
+      - skolar.db-server
+
+  skolar.db-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: skolar.db-server
+    environment:
+      - SA_PASSWORD=P@ssword123!
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - skolar-db-data:/var/opt/mssql
+
+volumes:
+   skolar-db-data:
+    
