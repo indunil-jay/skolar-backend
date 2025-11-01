@@ -36,12 +36,13 @@ public sealed class Todo : AggregateRoot
 
 
     public static Todo Create(
-        TodoTitle title,
-        TodoDescription? description = null,
+        string title,
+        string? description = null,
         TodoPriority priority = TodoPriority.Normal,
         DateTime? dueDate = null)
     {
-        var todo = new Todo(Guid.NewGuid(), title, description, TodoMetadata.Add(priority, dueDate), DateTime.UtcNow);
+        
+        var todo = new Todo(Guid.NewGuid(), TodoTitle.Create(title), TodoDescription.Create(description), TodoMetadata.Add(priority, dueDate), DateTime.UtcNow);
         todo.PublishDomainEvent(new TodoCreatedDomainEvent(todo));
         return todo;
     }

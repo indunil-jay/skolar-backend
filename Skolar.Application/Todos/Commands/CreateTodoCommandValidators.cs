@@ -7,13 +7,13 @@ namespace Skolar.Application.Todos.Commands
     {
         public CreateTodoCommandValidators()
         {
-            RuleFor(x => x.Title.Value)
+            RuleFor(x => x.Title)
                 .NotEmpty().WithMessage(Messages.TitleRequired)
                 .MinimumLength(3).WithMessage(Messages.TitleTooShort)
                 .MaximumLength(64).WithMessage(Messages.TitleTooLong);
 
             RuleFor(x => x.Description)
-                .Must(desc => desc is null || (desc.Value.Length <= 256))
+                .Must(desc => desc is null || (desc.Length <= 256))
                 .WithMessage(Messages.DescriptionTooLong);
 
             RuleFor(x => x.Priority.ToString())

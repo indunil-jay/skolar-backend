@@ -1,6 +1,7 @@
 ﻿using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Skolar.Api.Extensions;
 using Skolar.Application.Todos.Commands;
 
 namespace Skolar.Api.Controllers.Todos;
@@ -23,7 +24,8 @@ public class TodosController : ControllerBase
             CancellationToken cancellationToken)
     {
         var command = _mapper.Map<CreateTodoCommand>(request);
-        var todo =  await _sender.Send(command, cancellationToken);
-        return Created(string.Empty,todo);
+        var result =  await _sender.Send(command, cancellationToken);
+
+        return result.ToActionResult(this);
     }
 }

@@ -5,4 +5,4 @@ using Skolar.Domain.Todos.ValueObjects;
 
 namespace Skolar.Application.Todos.Commands;
 
-public sealed record CreateTodoCommand(TodoTitle Title, TodoDescription? Description, TodoPriority Priority, DateTime? DueDate) : ICommand<TodoResponse>;
+public sealed record CreateTodoCommand(string Title, string? Description, TodoPriority Priority, DateTime? DueDate) : ICommand<TodoResponse>;

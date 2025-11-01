@@ -4,11 +4,17 @@ namespace Skolar.Domain.Todos.ValueObjects;
 
 public sealed class TodoDescription : ValueObject
 {
-    public string Value { get; }
+    public string? Value { get; }
 
-    public TodoDescription(string value)
+    private TodoDescription(string? value)
     {
         Value = value;
+    }
+
+    public static TodoDescription Create(string? value)
+    {
+   
+        return new TodoDescription(value);
     }
 
     public static implicit operator string?(TodoDescription description) => description.Value;

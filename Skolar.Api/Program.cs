@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Skolar.Application;
 using Skolar.Infrastructure;
 
@@ -11,6 +12,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    // Disable automatic 400 responses from ASP.NET
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 
 var app = builder.Build();
 
