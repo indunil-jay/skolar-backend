@@ -7,11 +7,11 @@ namespace Skolar.Api.Controllers.Todos;
 
 [Route("api/todos")]
 [ApiController]
-public class Todos : ControllerBase
+public class TodosController : ControllerBase
 {
     private readonly ISender _sender;
     private readonly IMapper _mapper;
-    public Todos(ISender sender, IMapper mapper)
+    public TodosController(ISender sender, IMapper mapper)
     {
         _sender = sender;
         _mapper = mapper;
@@ -24,6 +24,6 @@ public class Todos : ControllerBase
     {
         var command = _mapper.Map<CreateTodoCommand>(request);
         var todo =  await _sender.Send(command, cancellationToken);
-        return Ok(todo);
+        return Created(string.Empty,todo);
     }
 }
