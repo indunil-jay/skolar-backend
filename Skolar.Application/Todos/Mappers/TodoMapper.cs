@@ -14,8 +14,8 @@ public sealed class TodoMapper : IRegister
     {
         // Map request → command
         config.NewConfig<CreateTodoRequest, CreateTodoCommand>()
-      .Map(dest => dest.Title, src => new TodoTitle(src.Title))
-      .Map(dest => dest.Description, src => new TodoDescription(src.Description))
+      .Map(dest => dest.Title, src =>  TodoTitle.Create(src.Title))
+      .Map(dest => dest.Description, src => src.Description==null ? null :new TodoDescription(src.Description))
       .Map(dest => dest.Priority, src => Enum.Parse<TodoPriority>(src.Priority, true));
 
 

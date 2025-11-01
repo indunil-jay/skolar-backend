@@ -18,7 +18,7 @@ internal sealed class TodoConfiguration : IEntityTypeConfiguration<Todo>
         builder.Property(t => t.Title)
                  .HasConversion(
                      title => title.Value,                    
-                     value => new TodoTitle(value))          
+                     value => TodoTitle.Create(value).Value)          
                  .HasColumnName("title")
                  .HasMaxLength(200)
                  .IsRequired();

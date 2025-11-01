@@ -1,6 +1,8 @@
-﻿namespace Skolar.Domain.Todos.ValueObjects;
+﻿using Skolar.Domain.Primitives;
 
-public sealed record TodoDescription
+namespace Skolar.Domain.Todos.ValueObjects;
+
+public sealed class TodoDescription : ValueObject
 {
     public string Value { get; }
 
@@ -12,4 +14,9 @@ public sealed record TodoDescription
     public static implicit operator string?(TodoDescription description) => description.Value;
 
     public static explicit operator TodoDescription(string value) => new(value);
+
+    public override IEnumerable<object> GetAtomicValues()
+    {
+        yield return Value;
+    }
 }
